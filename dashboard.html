@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کدلیب | داشبورد</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="nav-bar">
+            <div>
+                <h1 style="margin-bottom: 0; font-size: 1.8rem;">کدلیب</h1>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="جستجوی قطعه کد بر اساس نام، برچسب یا زبان...">
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="explorer.html" class="btn btn-secondary">
+                    <i class="fas fa-compass"></i> اکسپلورر
+                </a>
+                <a href="editor.html" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> قطعه کد جدید
+                </a>
+                <div id="userProfile" style="display: flex; align-items: center; gap: 0.8rem;">
+                    <span id="usernameDisplay" style="font-weight: 500;">کاربر</span>
+                    <button id="themeToggle" class="btn btn-secondary btn-sm" title="تغییر تم" style="padding: 0.5rem;">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="logoutBtn" class="btn btn-secondary btn-sm" title="خروج" style="padding: 0.5rem;">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                    <div class="profile-menu-wrap">
+                        <button id="profileMenuToggle" type="button" class="profile-avatar-button" title="حساب کاربری">
+                            <span id="userAvatar" class="profile-avatar-small">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </button>
+                        <div id="profileMenu" class="profile-menu">
+                            <a href="profile.html">
+                                <i class="fas fa-user"></i>
+                                پروفایل
+                            </a>
+                            <a href="settings.html">
+                                <i class="fas fa-cog"></i>
+                                تنظیمات
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="font-weight: 600;">کتابخانه شما</h2>
+            </div>
+
+            <div class="snippet-grid" id="snippetGrid"></div>
+        </section>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/snippets.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کدلیب | اکسپلورر</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="nav-bar">
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <a href="dashboard.html" style="color: var(--text-dim); text-decoration: none; font-size: 1.2rem;">
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <h1 style="margin-bottom: 0; font-size: 1.8rem;">اکسپلورر کد</h1>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="explorerSearch" placeholder="جستجوی کدهای عمومی دیگران...">
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="dashboard.html" class="btn btn-secondary">کتابخانه من</a>
+                <button id="themeToggle" class="btn btn-secondary btn-sm" title="تغییر تم" style="padding: 0.5rem;">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="logoutBtn" class="btn btn-secondary btn-sm" title="خروج" style="padding: 0.5rem;">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <section>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem;">
+                <h2 style="font-weight: 600;">کدهای عمومی جامعه</h2>
+                <p style="color: var(--text-dim); font-size: 0.9rem;">کدهای به اشتراک گذاشته شده توسط دیگران را ببینید و به کتابخانه خود اضافه کنید.</p>
+            </div>
+
+            <div class="snippet-grid" id="explorerGrid">
+                <!-- کدهای عمومی اینجا تزریق می‌شوند -->
+            </div>
+        </section>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/snippets.js"></script>
+    <script>
+        // Explorer specific logic
+        document.addEventListener('DOMContentLoaded', () => {
+            renderExplorer();
+            document.getElementById('explorerSearch')?.addEventListener('input', (e) => {
+                renderExplorer(e.target.value);
+            });
+        });
+    </script>
+</body>
+</html>
