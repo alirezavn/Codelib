@@ -7,6 +7,7 @@ const getSnippets = async () => {
                 const { data, error } = await sb
                     .from('snippets')
                     .select('*')
+                    .eq('user_id', profile.id)
                     .order('created_at', { ascending: false });
                 if (error) throw error;
                 return data.map(item => ({
@@ -25,12 +26,8 @@ const getSnippets = async () => {
     return data.snippets || [];
 };
 
-if (document.getElementById('snippetGrid')) {
-    renderSnippets();
-    document.getElementById('searchInput')?.addEventListener('input', (event) => {
-        renderSnippets(event.target.value);
-    });
-}
+// Immediate initializer deleted in favor of the runInit block at the bottom
+
 
 async function renderSnippets(query = '') {
     const grid = document.getElementById('snippetGrid');
@@ -331,11 +328,25 @@ async function renderExplorer(query = '') {
     if (window.Prism) Prism.highlightAll();
 }
 
-if (document.getElementById('explorerGrid')) {
-    renderExplorer();
-    document.getElementById('explorerSearch')?.addEventListener('input', (event) => {
-        renderExplorer(event.target.value);
-    });
+function runInit() {
+    if (document.getElementById('snippetGrid')) {
+        renderSnippets();
+        document.getElementById('searchInput')?.addEventListener('input', (event) => {
+            renderSnippets(event.target.value);
+        });
+    }
+    if (document.getElementById('explorerGrid')) {
+        renderExplorer();
+        document.getElementById('explorerSearch')?.addEventListener('input', (event) => {
+            renderExplorer(event.target.value);
+        });
+    }
+}
+
+if (App.isSupabaseActive() && !window.supabase) {
+    document.addEventListener('supabaseReady', runInit);
+} else {
+    runInit();
 }
 
 window.copyToLibrary = async (dataStr) => {
