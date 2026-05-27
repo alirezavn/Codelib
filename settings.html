@@ -149,89 +149,13 @@
                                     <i class="fas fa-plug" style="color: var(--success); font-size: 1.4rem;"></i>
                                     افزونه Supabase
                                 </h2>
-                                <p>سایت و قطعه کدهای خود را به پایگاه داده ابری Supabase متصل کنید.</p>
+                                <p>پایگاه داده ابری و سرویس‌های احراز هویت Supabase به صورت سراسری برای این سایت فعال است.</p>
                             </div>
-                            <span id="supabaseStatusBadge" class="supabase-badge badge-disconnected">غیرمتصل</span>
+                            <span id="supabaseStatusBadge" class="supabase-badge badge-connected">فعال</span>
                         </div>
 
-                        <!-- Card 1: Disconnected View -->
-                        <div id="supabaseDisconnectedCard" class="supabase-extension-card glass">
-                            <div class="extension-card-header" style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
-                                <div class="supabase-logo-container">
-                                    <i class="fas fa-database" style="color: var(--success); font-size: 2rem;"></i>
-                                </div>
-                                <div>
-                                    <h3 style="font-weight: 600; font-size: 1.15rem;">ادغام رسمی Supabase</h3>
-                                    <p class="subtitle" style="margin-bottom: 0; font-size: 0.85rem;">پایگاه داده ابری و سرویس‌های احراز هویت Supabase را به پروژه خود اضافه کنید.</p>
-                                </div>
-                            </div>
-                            <div class="extension-card-body" style="margin-top: 1rem;">
-                                <p style="font-size: 0.9rem; line-height: 1.8; color: var(--text-dim);">
-                                    با اتصال حساب Supabase خود، می‌توانید قطعه کدهای محلی خود را مستقیماً در پایگاه داده ابری ذخیره و در هر زمان آن‌ها را بازیابی یا همگام‌سازی کنید.
-                                </p>
-                            </div>
-                            <div class="extension-card-footer" style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
-                                <button id="supabaseConnectBtn" class="btn btn-primary">
-                                    <i class="fas fa-link"></i> اتصال حساب کاربری
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Configuration Form (Hidden by default) -->
-                        <div id="supabaseConfigCard" class="supabase-extension-card glass" style="display: none;">
-                            <div style="margin-bottom: 1.5rem;">
-                                <h3>پیکربندی افزونه Supabase</h3>
-                                <p style="color: var(--text-dim); font-size: 0.85rem;">مشخصات اتصال پروژه Supabase خود را وارد کنید.</p>
-                            </div>
-
-                            <form id="supabaseForm" class="settings-grid" style="display: grid; grid-template-columns: 1fr; gap: 1.2rem; width: 100%;" onsubmit="return false;">
-                                <div class="input-group">
-                                    <label for="sbUrlInput">آدرس پروژه (Supabase URL / Database URL)</label>
-                                    <input type="text" id="sbUrlInput" placeholder="https://your-project.supabase.co" required>
-                                </div>
-                                <div class="input-group">
-                                    <label for="sbKeyInput">کلید عمومی پروژه (Supabase Anon Key)</label>
-                                    <div style="position: relative; display: flex; align-items: center;">
-                                        <input type="password" id="sbKeyInput" placeholder="eyJhbGciOiJIUzI1NiIsInR..." required style="padding-left: 3rem; width: 100%;">
-                                        <button type="button" id="toggleSbKeyBtn" style="position: absolute; left: 1rem; background: transparent; border: 0; color: var(--text-dim); cursor: pointer; padding: 0;">
-                                            <i class="fas fa-eye"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="settings-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; width: 100%;">
-                                    <div class="input-group">
-                                        <label for="sbProjectInput">نام پروژه</label>
-                                        <input type="text" id="sbProjectInput" placeholder="My-CodeLib-Site" required>
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="sbFrameworkSelect">فریمورک پروژه</label>
-                                        <select id="sbFrameworkSelect" class="setting-field select" style="width: 100%; padding: 0.8rem; background: var(--field-bg); border: 1px solid var(--glass-border); border-radius: 10px; color: var(--text-main);">
-                                            <option value="nextjs">Next.js</option>
-                                            <option value="vite">Vite / React</option>
-                                            <option value="nuxt">Nuxt / Vue</option>
-                                            <option value="sveltekit">SvelteKit</option>
-                                            <option value="astro">Astro</option>
-                                            <option value="other">سایر (Other)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="input-group" id="sbCustomPrefixGroup" style="display: none;">
-                                    <label for="sbCustomPrefixInput">پیشوند متغیرهای محیطی دلخواه (Custom Prefix)</label>
-                                    <input type="text" id="sbCustomPrefixInput" placeholder="PUBLIC_" value="PUBLIC_">
-                                </div>
-
-                                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem;">
-                                    <button type="button" id="sbCancelBtn" class="btn btn-secondary">لغو</button>
-                                    <button type="submit" id="sbSaveBtn" class="btn btn-primary">
-                                        <i class="fas fa-save"></i> ذخیره تنظیمات
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Card 3: Connected View (Hidden by default) -->
-                        <div id="supabaseConnectedCard" class="supabase-extension-card glass" style="display: none;">
+                        <!-- Card: Cloud Connection Details -->
+                        <div class="supabase-extension-card glass">
                             <div class="extension-card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
                                 <div style="display: flex; align-items: center; gap: 1rem;">
                                     <div class="supabase-logo-container active">
@@ -239,24 +163,21 @@
                                     </div>
                                     <div>
                                         <h3 style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; font-weight: 600;">
-                                            Supabase با موفقیت متصل شد
+                                            اتصال سراسری برقرار است
                                         </h3>
-                                        <p class="subtitle" style="margin-bottom: 0; font-size: 0.85rem;" id="sbProjectDisplay">پروژه فعال: my-project</p>
+                                        <p class="subtitle" style="margin-bottom: 0; font-size: 0.85rem;">شناسه پروژه دیتابیس: vorbfztgddhnguqqrjcx</p>
                                     </div>
                                 </div>
-                                <button id="sbDisconnectBtn" class="btn btn-secondary btn-sm" style="padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.2);">
-                                    <i class="fas fa-unlink"></i> قطع اتصال
-                                </button>
                             </div>
 
                             <div class="settings-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
                                 <div class="glass" style="padding: 1rem; border-radius: 12px;">
-                                    <span style="font-size: 0.8rem; color: var(--text-dim);">فریمورک فعال</span>
-                                    <strong style="display: block; margin-top: 0.4rem;" id="sbFrameworkDisplay">Next.js</strong>
+                                    <span style="font-size: 0.8rem; color: var(--text-dim);">پلتفرم دیتابیس ابری</span>
+                                    <strong style="display: block; margin-top: 0.4rem;">Supabase PostgreSQL</strong>
                                 </div>
                                 <div class="glass" style="padding: 1rem; border-radius: 12px;">
-                                    <span style="font-size: 0.8rem; color: var(--text-dim);">پیشوند متغیرهای محیطی</span>
-                                    <strong style="display: block; margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace;" id="sbPrefixDisplay">NEXT_PUBLIC_</strong>
+                                    <span style="font-size: 0.8rem; color: var(--text-dim);">نوع اتصال</span>
+                                    <strong style="display: block; margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace;">Serverless API Gateway</strong>
                                 </div>
                             </div>
 
@@ -264,10 +185,10 @@
                             <div class="glass" style="padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(16, 185, 129, 0.2);">
                                 <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
                                     <i class="fas fa-sync" style="color: var(--success);"></i>
-                                    همگام‌سازی ابری قطعه‌کدها
+                                    همگام‌سازی ابری قطعه‌کدها (ابزار توسعه‌دهنده)
                                 </h4>
                                 <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.2rem;">
-                                    می‌توانید کدهای ذخیره‌شده محلی (از پایگاه داده local MySQL) را مستقیماً به پروژه ابری Supabase خود منتقل کنید تا یک نسخه پشتیبان آنلاین داشته باشید.
+                                    به عنوان مدیر، می‌توانید قطعه‌کدهای ذخیره‌شده در سیستم محلی خود (Local MySQL) را با یک کلیک به پروژه دیتابیس ابری Supabase منتقل کنید تا در نسخه لایو قرار گیرند.
                                 </p>
                                 
                                 <div id="syncProgressContainer" style="display: none; margin-bottom: 1.5rem;">
@@ -294,7 +215,7 @@
                                     راهنمای راه‌اندازی سریع دیتابیس Supabase
                                 </h4>
                                 <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem;">
-                                    کد SQL زیر را کپی کرده و در بخش **SQL Editor** داشبورد Supabase خود اجرا کنید تا جدول موردنیاز جهت ذخیره قطعه‌کدها ساخته شود:
+                                    جهت ایجاد جداول موردنیاز در هر پروژه Supabase دیگر، می‌توانید از ساختار SQL بهینه‌شده زیر استفاده کنید:
                                 </p>
                                 <div style="position: relative; background: var(--field-bg); border-radius: 8px; border: 1px solid var(--glass-border); padding: 1rem; overflow-x: auto;">
                                     <button id="copySqlBtn" class="btn btn-secondary btn-sm" style="position: absolute; left: 0.75rem; top: 0.75rem; padding: 0.4rem 0.8rem; font-size: 0.8rem; z-index: 10;" title="کپی کد SQL">
@@ -309,6 +230,7 @@ CREATE TABLE IF NOT EXISTS snippets (
   description text,
   code text,
   visibility text default 'private',
+  tags text[] default '{}'::text[],
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );</pre>
                                 </div>

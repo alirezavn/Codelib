@@ -60,18 +60,22 @@ const App = {
     }
 };
 
+const SUPABASE_CONFIG = {
+    url: "https://vorbfztgddhnguqqrjcx.supabase.co",
+    key: "sb_publishable_Mj9KrENI6qLeoOjgJk_sug_UwDDXidv"
+};
+
 let supabaseClient = null;
 
 App.isSupabaseActive = () => {
-    return localStorage.getItem('supabase_config') !== null;
+    return true; // Always active globally in production
 };
 
 App.getSupabaseClient = () => {
-    if (!supabaseClient && App.isSupabaseActive()) {
+    if (!supabaseClient) {
         try {
-            const config = JSON.parse(localStorage.getItem('supabase_config'));
             if (window.supabase) {
-                supabaseClient = window.supabase.createClient(config.url, config.key);
+                supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
             }
         } catch (e) {
             console.error('Failed to init Supabase client:', e);
@@ -80,12 +84,15 @@ App.getSupabaseClient = () => {
     return supabaseClient;
 };
 
-// Dynamically load Supabase script if active and not already present
-if (App.isSupabaseActive() && !window.supabase && !document.getElementById('supabase-cdn-script')) {
+// Dynamically load Supabase script if not already present
+if (!window.supabase && !document.getElementById('supabase-cdn-script')) {
     const script = document.createElement('script');
     script.id = 'supabase-cdn-script';
     script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
     script.async = false;
+    script.onload = () => {
+        document.dispatchEvent(new Event('supabaseReady'));
+    };
     document.head.appendChild(script);
 }
 

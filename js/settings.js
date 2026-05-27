@@ -114,188 +114,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Supabase Integration
     const supabaseStatusBadge = document.getElementById('supabaseStatusBadge');
-    const supabaseDisconnectedCard = document.getElementById('supabaseDisconnectedCard');
-    const supabaseConfigCard = document.getElementById('supabaseConfigCard');
-    const supabaseConnectedCard = document.getElementById('supabaseConnectedCard');
-    
-    const supabaseConnectBtn = document.getElementById('supabaseConnectBtn');
-    const sbCancelBtn = document.getElementById('sbCancelBtn');
-    const supabaseForm = document.getElementById('supabaseForm');
-    
-    const sbUrlInput = document.getElementById('sbUrlInput');
-    const sbKeyInput = document.getElementById('sbKeyInput');
-    const sbProjectInput = document.getElementById('sbProjectInput');
-    const sbFrameworkSelect = document.getElementById('sbFrameworkSelect');
-    const sbCustomPrefixGroup = document.getElementById('sbCustomPrefixGroup');
-    const sbCustomPrefixInput = document.getElementById('sbCustomPrefixInput');
-    const toggleSbKeyBtn = document.getElementById('toggleSbKeyBtn');
-    
-    const sbDisconnectBtn = document.getElementById('sbDisconnectBtn');
     const sbSyncBtn = document.getElementById('sbSyncBtn');
     const copySqlBtn = document.getElementById('copySqlBtn');
-    
-    const sbProjectDisplay = document.getElementById('sbProjectDisplay');
-    const sbFrameworkDisplay = document.getElementById('sbFrameworkDisplay');
-    const sbPrefixDisplay = document.getElementById('sbPrefixDisplay');
     
     const syncProgressContainer = document.getElementById('syncProgressContainer');
     const syncProgressLabel = document.getElementById('syncProgressLabel');
     const syncProgressPercent = document.getElementById('syncProgressPercent');
     const syncProgressBar = document.getElementById('syncProgressBar');
 
-    // Framework Prefix Mapping
-    const prefixes = {
-        nextjs: 'NEXT_PUBLIC_',
-        vite: 'VITE_',
-        nuxt: 'NUXT_PUBLIC_',
-        sveltekit: 'PUBLIC_',
-        astro: 'PUBLIC_'
-    };
-
-    // Helper to get prefix for active configuration
-    function getPrefix(framework, customVal = '') {
-        if (framework === 'other') {
-            return customVal.trim() || 'PUBLIC_';
-        }
-        return prefixes[framework] || '';
-    }
-
-    // Toggle Key Visibility
-    toggleSbKeyBtn?.addEventListener('click', () => {
-        const type = sbKeyInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        sbKeyInput.setAttribute('type', type);
-        const icon = toggleSbKeyBtn.querySelector('i');
-        if (icon) {
-            icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
-        }
-    });
-
-    // Conditional Display for custom prefix
-    sbFrameworkSelect?.addEventListener('change', () => {
-        if (sbFrameworkSelect.value === 'other') {
-            sbCustomPrefixGroup.style.display = 'block';
-        } else {
-            sbCustomPrefixGroup.style.display = 'none';
-        }
-    });
-
-    // Update UI based on storage state
+    // Update UI based on storage state (Simplified for production app-wide)
     function updateSupabaseUI() {
-        const storedConfig = localStorage.getItem('supabase_config');
-        if (storedConfig) {
-            try {
-                const config = JSON.parse(storedConfig);
-                
-                // Set Badge
-                if (supabaseStatusBadge) {
-                    supabaseStatusBadge.textContent = 'متصل شد';
-                    supabaseStatusBadge.className = 'supabase-badge badge-connected';
-                }
-                
-                // Display Config
-                const displayPrefix = getPrefix(config.framework, config.customPrefix);
-                if (sbProjectDisplay) sbProjectDisplay.textContent = `پروژه فعال: ${config.project}`;
-                
-                // Framework pretty name mapping
-                const fwNames = {
-                    nextjs: 'Next.js',
-                    vite: 'Vite / React',
-                    nuxt: 'Nuxt / Vue',
-                    sveltekit: 'SvelteKit',
-                    astro: 'Astro',
-                    other: 'سایر (Other)'
-                };
-                if (sbFrameworkDisplay) sbFrameworkDisplay.textContent = fwNames[config.framework] || config.framework;
-                if (sbPrefixDisplay) sbPrefixDisplay.textContent = displayPrefix;
-                
-                // Toggle Cards
-                if (supabaseDisconnectedCard) supabaseDisconnectedCard.style.display = 'none';
-                if (supabaseConfigCard) supabaseConfigCard.style.display = 'none';
-                if (supabaseConnectedCard) supabaseConnectedCard.style.display = 'block';
-                
-                // Pre-fill form fields
-                if (sbUrlInput) sbUrlInput.value = config.url || '';
-                if (sbKeyInput) sbKeyInput.value = config.key || '';
-                if (sbProjectInput) sbProjectInput.value = config.project || '';
-                if (sbFrameworkSelect) sbFrameworkSelect.value = config.framework || 'nextjs';
-                if (config.framework === 'other') {
-                    if (sbCustomPrefixGroup) sbCustomPrefixGroup.style.display = 'block';
-                    if (sbCustomPrefixInput) sbCustomPrefixInput.value = config.customPrefix || 'PUBLIC_';
-                } else {
-                    if (sbCustomPrefixGroup) sbCustomPrefixGroup.style.display = 'none';
-                }
-            } catch (e) {
-                console.error('Error loading Supabase config', e);
-                showDisconnectedState();
-            }
-        } else {
-            showDisconnectedState();
-        }
-    }
-
-    function showDisconnectedState() {
         if (supabaseStatusBadge) {
-            supabaseStatusBadge.textContent = 'غیرمتصل';
-            supabaseStatusBadge.className = 'supabase-badge badge-disconnected';
+            supabaseStatusBadge.textContent = 'فعال';
+            supabaseStatusBadge.className = 'supabase-badge badge-connected';
         }
-        
-        if (supabaseDisconnectedCard) supabaseDisconnectedCard.style.display = 'block';
-        if (supabaseConfigCard) supabaseConfigCard.style.display = 'none';
-        if (supabaseConnectedCard) supabaseConnectedCard.style.display = 'none';
     }
-
-    // Connect Button click - Show Form
-    supabaseConnectBtn?.addEventListener('click', () => {
-        if (supabaseDisconnectedCard) supabaseDisconnectedCard.style.display = 'none';
-        if (supabaseConfigCard) supabaseConfigCard.style.display = 'block';
-    });
-
-    // Cancel Button click - Restore default disconnected/connected state
-    sbCancelBtn?.addEventListener('click', () => {
-        updateSupabaseUI();
-    });
-
-    // Save Form Submission
-    supabaseForm?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const url = sbUrlInput ? sbUrlInput.value.trim() : '';
-        const key = sbKeyInput ? sbKeyInput.value.trim() : '';
-        const project = sbProjectInput ? sbProjectInput.value.trim() : '';
-        const framework = sbFrameworkSelect ? sbFrameworkSelect.value : 'nextjs';
-        const customPrefix = sbCustomPrefixInput ? sbCustomPrefixInput.value.trim() : '';
-
-        if (!url || !key || !project) {
-            App.showToast('لطفاً همه فیلدهای اجباری را پر کنید.');
-            return;
-        }
-
-        // Quick client check
-        if (window.supabase) {
-            try {
-                // Initialize client test
-                window.supabase.createClient(url, key);
-            } catch (err) {
-                App.showToast('آدرس یا کلید Supabase نامعتبر است.');
-                return;
-            }
-        }
-
-        const config = { url, key, project, framework, customPrefix };
-        localStorage.setItem('supabase_config', JSON.stringify(config));
-        
-        App.showToast('پیکربندی Supabase با موفقیت ذخیره شد.');
-        updateSupabaseUI();
-    });
-
-    // Disconnect Action
-    sbDisconnectBtn?.addEventListener('click', () => {
-        if (confirm('آیا مطمئن هستید که می‌خواهید اتصال Supabase را قطع کنید؟')) {
-            localStorage.removeItem('supabase_config');
-            App.showToast('اتصال با Supabase قطع شد.');
-            updateSupabaseUI();
-        }
-    });
 
     // Copy SQL Script logic
     copySqlBtn?.addEventListener('click', () => {
@@ -321,13 +154,6 @@ CREATE TABLE IF NOT EXISTS snippets (
 
     // Supabase Cloud Sync logic
     sbSyncBtn?.addEventListener('click', async () => {
-        const storedConfig = localStorage.getItem('supabase_config');
-        if (!storedConfig) {
-            App.showToast('پیکربندی فعال Supabase یافت نشد.');
-            return;
-        }
-
-        const config = JSON.parse(storedConfig);
         if (!window.supabase) {
             App.showToast('کتابخانه Supabase لود نشده است.');
             return;
@@ -363,7 +189,7 @@ CREATE TABLE IF NOT EXISTS snippets (
             if (syncProgressPercent) syncProgressPercent.textContent = '10%';
             if (syncProgressLabel) syncProgressLabel.textContent = 'در حال اتصال به دیتابیس Supabase...';
             
-            const sbClient = window.supabase.createClient(config.url, config.key);
+            const sbClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.key);
             
             // Step 3: Loop and Upsert snippets to Supabase
             let syncedCount = 0;
