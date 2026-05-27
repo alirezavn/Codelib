@@ -39,10 +39,6 @@
                         <i class="fas fa-user-cog"></i>
                         <span>حساب کاربری</span>
                     </li>
-                    <li class="tab-item" data-tab="supabase-extension">
-                        <i class="fas fa-plug" style="color: var(--success);"></i>
-                        <span>افزونه Supabase</span>
-                    </li>
                 </ul>
             </aside>
 
@@ -136,105 +132,6 @@
                             <button id="logoutSettingsBtn" class="btn btn-secondary" type="button">
                                 <i class="fas fa-sign-out-alt"></i> خروج از حساب
                             </button>
-                        </div>
-                    </section>
-                </div>
-
-                <!-- Tab 3: Supabase Extension -->
-                <div id="tab-supabase-extension" class="tab-content">
-                    <section class="glass settings-panel">
-                        <div class="settings-panel-header" style="display: flex; justify-content: space-between; align-items: start; gap: 1rem;">
-                            <div>
-                                <h2 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem;">
-                                    <i class="fas fa-plug" style="color: var(--success); font-size: 1.4rem;"></i>
-                                    افزونه Supabase
-                                </h2>
-                                <p>پایگاه داده ابری و سرویس‌های احراز هویت Supabase به صورت سراسری برای این سایت فعال است.</p>
-                            </div>
-                            <span id="supabaseStatusBadge" class="supabase-badge badge-connected">فعال</span>
-                        </div>
-
-                        <!-- Card: Cloud Connection Details -->
-                        <div class="supabase-extension-card glass">
-                            <div class="extension-card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
-                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                    <div class="supabase-logo-container active">
-                                        <i class="fas fa-check-circle" style="color: var(--success); font-size: 2.2rem;"></i>
-                                    </div>
-                                    <div>
-                                        <h3 style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; font-weight: 600;">
-                                            اتصال سراسری برقرار است
-                                        </h3>
-                                        <p class="subtitle" style="margin-bottom: 0; font-size: 0.85rem;">شناسه پروژه دیتابیس: vorbfztgddhnguqqrjcx</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="settings-grid" style="grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
-                                <div class="glass" style="padding: 1rem; border-radius: 12px;">
-                                    <span style="font-size: 0.8rem; color: var(--text-dim);">پلتفرم دیتابیس ابری</span>
-                                    <strong style="display: block; margin-top: 0.4rem;">Supabase PostgreSQL</strong>
-                                </div>
-                                <div class="glass" style="padding: 1rem; border-radius: 12px;">
-                                    <span style="font-size: 0.8rem; color: var(--text-dim);">نوع اتصال</span>
-                                    <strong style="display: block; margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace;">Serverless API Gateway</strong>
-                                </div>
-                            </div>
-
-                            <!-- Sync & Database Migrator section -->
-                            <div class="glass" style="padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid rgba(16, 185, 129, 0.2);">
-                                <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-                                    <i class="fas fa-sync" style="color: var(--success);"></i>
-                                    همگام‌سازی ابری قطعه‌کدها (ابزار توسعه‌دهنده)
-                                </h4>
-                                <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1.2rem;">
-                                    به عنوان مدیر، می‌توانید قطعه‌کدهای ذخیره‌شده در سیستم محلی خود (Local MySQL) را با یک کلیک به پروژه دیتابیس ابری Supabase منتقل کنید تا در نسخه لایو قرار گیرند.
-                                </p>
-                                
-                                <div id="syncProgressContainer" style="display: none; margin-bottom: 1.5rem;">
-                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.4rem;">
-                                        <span id="syncProgressLabel" style="color: var(--text-dim);">در حال آماده‌سازی همگام‌سازی...</span>
-                                        <span id="syncProgressPercent" style="font-weight: bold; color: var(--success);">0%</span>
-                                    </div>
-                                    <div style="width: 100%; height: 8px; background: rgba(0, 0, 0, 0.2); border-radius: 4px; overflow: hidden;">
-                                        <div id="syncProgressBar" style="width: 0%; height: 100%; background: var(--success); transition: width 0.3s ease;"></div>
-                                    </div>
-                                </div>
-
-                                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
-                                    <button id="sbSyncBtn" class="btn btn-primary" style="background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);">
-                                        <i class="fas fa-sync"></i> همگام‌سازی با Supabase
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- SQL Setup Instructions -->
-                            <div class="glass" style="padding: 1.5rem; border-radius: 12px;">
-                                <h4 style="margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; font-weight: 600;">
-                                    <i class="fas fa-terminal" style="color: var(--accent-primary);"></i>
-                                    راهنمای راه‌اندازی سریع دیتابیس Supabase
-                                </h4>
-                                <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.8; margin-bottom: 1rem;">
-                                    جهت ایجاد جداول موردنیاز در هر پروژه Supabase دیگر، می‌توانید از ساختار SQL بهینه‌شده زیر استفاده کنید:
-                                </p>
-                                <div style="position: relative; background: var(--field-bg); border-radius: 8px; border: 1px solid var(--glass-border); padding: 1rem; overflow-x: auto;">
-                                    <button id="copySqlBtn" class="btn btn-secondary btn-sm" style="position: absolute; left: 0.75rem; top: 0.75rem; padding: 0.4rem 0.8rem; font-size: 0.8rem; z-index: 10;" title="کپی کد SQL">
-                                        <i class="fas fa-copy"></i> کپی
-                                    </button>
-                                    <pre style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; direction: ltr; text-align: left; color: #a5b4fc; margin-top: 0.5rem; line-height: 1.5;">
--- Create snippets table in Supabase
-CREATE TABLE IF NOT EXISTS snippets (
-  id bigint generated by default as identity primary key,
-  title text not null,
-  language text,
-  description text,
-  code text,
-  visibility text default 'private',
-  tags text[] default '{}'::text[],
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);</pre>
-                                </div>
-                            </div>
                         </div>
                     </section>
                 </div>
